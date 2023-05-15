@@ -5,7 +5,7 @@
 }
 
 body {
-  overflow: hidden;
+  overflow: auto;
   background: wheat;
   height: 100vh;
 }
