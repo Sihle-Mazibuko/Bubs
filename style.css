@@ -173,3 +173,74 @@ span {
     height: 10px;
   }
 }
+
+.section2 {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  color: skyblue;
+}
+
+.love {
+  padding-top: 25%;
+}
+
+.love a {
+  text-decoration: none;
+  background: #eee;
+  padding: 5px;
+  margin: 5px 10px;
+  border: 2px solid black;
+}
+
+#h1sec2 {
+  font-size: clamp(40px, 6vw + 0.8rem, 80px);
+  text-align: center;
+}
+
+#no {
+  color: red;
+  opacity: 0.4;
+}
+
+#yes {
+  color: green;
+  border: 5px solid black;
+}
+
+#yesheart {
+  height: 50px;
+  width: 50px;
+  animation: heart 1s linear infinite;
+}
+
+@keyframes heart {
+  0% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(0.5);
+  }
+}
+
+#pstag {
+  font-size: clamp(10px, 2vw + 0.3rem, 40px);
+  margin-top: 40px;
+  padding: 60px;
+  text-align: center;
+}
+
+.pstag-no {
+  color: red;
+  opacity: 0.5;
+}
+
+#footer2 {
+  color: red(245, 222, 179, 0.696);
+  width: 300px;
+  height: 300px;
+  border: 10px solid black;
+}
