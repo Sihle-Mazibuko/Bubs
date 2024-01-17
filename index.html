@@ -9,22 +9,69 @@
       type="image/x-icon"
     />
     <link rel="stylesheet" href="home.css" />
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <title>I Love You</title>
   </head>
   <body>
     <header>
       <nav class="navbar">
-        <div class="heart-container"></div>
+        <div class="logo">
+          <img
+            src="212-2122344_blue-heart-sticker-discord-blue-heart-emoji.png"
+            alt="Heart Logo"
+          />
+        </div>
+        <div class="menu-icon"><box-icon name="menu"></box-icon></div>
         <ul class="nav-list">
           <li><a href="#">Home</a></li>
-          <li><a href="https://sihle-mazibuko.github.io/Bubs/">OG Site</a></li>
+          <li><a href="http://127.0.0.1:5500/original.html">OG Site</a></li>
           <li><a href="#">Links</a></li>
         </ul>
       </nav>
     </header>
-    <main></main>
+    <main>
+      <section id="bible-verse" class="text-section">
+        <div class="section-title">
+          <h2>Bible Verse</h2>
+          <p class="verse-name-placeholder">Verse Name Placeholder</p>
+        </div>
+        <div class="section-content">
+          <p>Your favorite Bible verse's main message or content.</p>
+        </div>
+      </section>
+
+      <section id="love-dictionary" class="dictionary-section">
+        <div class="dictionary-entry">
+          <h2>
+            Love <span> <p class="dictionary-part-of-speech">(verb)</p> </span>
+            <span><p class="dictionary-pronounciation">/lʌv/</p> </span>
+          </h2>
+          <p class="dictionary-extra-info">Liking and caring</p>
+          <hr class="dictionary-divider" />
+          <p class="dictionary-definition">
+            1. love somebody/something (not used in the progressive tenses) to
+            have very strong feelings of liking and caring for somebody
+          </p>
+        </div>
+      </section>
+
+      <section id="links" class="links-sec">
+        <a href="#" class="link-card" id="g-drive">
+          <h3>Google Drive</h3>
+          <p>Relive the memories</p>
+        </a>
+
+        <a href="#" class="link-card" id="spotify-p">
+          <h3>Spotify Playlist</h3>
+          <p>Aren't these our songs and our songs only?</p>
+        </a>
+
+        <a href="#" class="link-card" id="apple-p">
+          <h3>Apple Music</h3>
+          <p>Remember that time I...</p>
+        </a>
+      </section>
+    </main>
     <footer></footer>
     <script src="home.js"></script>
   </body>
