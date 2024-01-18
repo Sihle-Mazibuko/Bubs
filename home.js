@@ -10,37 +10,41 @@ document.addEventListener("DOMContentLoaded", function () {
     navList.classList.remove("show");
   });
 });
-// Function to fetch Bible verse data
-async function fetchBibleVerse() {
-  // API endpoint for a random Bible verse
-  const apiUrl =
-    "https://api.scripture.api.bible/v1/bibles/64ce9c1f-0524-4ddc-89d0-3b6b7f2c32f2/verses/GEN.1.1";
 
+const YOUR_API_KEY = "d2bc00add5b05f62d8bb5bb5e7e6fdfb";
+async function getRandomVerse() {
   try {
-    // Fetch data from the API using your key
-    const response = await fetch(apiUrl, {
-      headers: {
-        "api-key": "d2bc00add5b05f62d8bb5bb5e7e6fdfb", // Replace with your actual API key
-      },
+    const response = await fetch(
+      `https://api.scripture.api.bible/v1/verses?api-key=${YOUR_API_KEY}`
+    );
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
+    }
+    const data = await response.json();
+    const allVerses = data.data; // Array of all verses
+
+    // Promise-based random verse selection
+    const randomIndexPromise = new Promise((resolve, reject) => {
+      const randomIndex = Math.floor(Math.random() * allVerses.length);
+      resolve(randomIndex);
     });
 
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch Bible verse. Status: ${response.status}`
-      );
-    }
-
-    const data = await response.json();
-
-    // Display API data in the console
-    console.log("Bible Verse:", data);
-
-    // You can return the data or perform additional actions here
-    return data;
+    return await randomIndexPromise.then((index) => {
+      return {
+        text: allVerses[index].text,
+        reference: allVerses[index].reference,
+      };
+    });
   } catch (error) {
-    console.error("Error fetching Bible verse:", error.message);
+    console.error("Error fetching verse:", error);
   }
 }
 
-// Call the function to fetch the Bible verse data
-fetchBibleVerse();
+getRandomVerse()
+  .then((verse) => {
+    console.log(`Random verse: ${verse.text}`);
+    console.log(`Reference: ${verse.reference}`);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });

@@ -25,7 +25,7 @@
         <ul class="nav-list">
           <li><a href="#">Home</a></li>
           <li><a href="http://127.0.0.1:5500/original.html">OG Site</a></li>
-          <li><a href="#">Links</a></li>
+          <li><a href="#links">Links</a></li>
         </ul>
       </nav>
     </header>
@@ -36,7 +36,9 @@
           <p class="verse-name-placeholder">Verse Name Placeholder</p>
         </div>
         <div class="section-content">
-          <p>Your favorite Bible verse's main message or content.</p>
+          <p id="verse-container">
+            Your favorite Bible verse's main message or content.
+          </p>
         </div>
       </section>
 
@@ -57,16 +59,29 @@
 
       <section id="links" class="links-sec">
         <a href="#" class="link-card" id="g-drive">
+          <box-icon type="solid" name="cloud-upload" class="icon"></box-icon>
           <h3>Google Drive</h3>
           <p>Relive the memories</p>
         </a>
 
-        <a href="#" class="link-card" id="spotify-p">
+        <a
+          href="https://open.spotify.com/playlist/089tQbJJ0kkBygLl8jaqiW?si=8374af1f140b43dd"
+          class="link-card"
+          id="spotify-p"
+        >
+          <box-icon type="logo" name="spotify" class="icon"></box-icon>
+
           <h3>Spotify Playlist</h3>
           <p>Aren't these our songs and our songs only?</p>
         </a>
 
-        <a href="#" class="link-card" id="apple-p">
+        <a
+          href="https://music.apple.com/za/playlist/i-love-you/pl.u-jV89e1JuDxZAVq6"
+          class="link-card"
+          id="apple-p"
+        >
+          <box-icon type="logo" name="apple" class="icon"></box-icon>
+
           <h3>Apple Music</h3>
           <p>Remember that time I...</p>
         </a>
