@@ -21,7 +21,7 @@ function updateFlowerSize() {
   // Select the existing SVG and update its width
   d3.select("svg")
     .attr("width", flowerSize)
-    .attr("height", flowerSize * 2);
+    .attr("height", flowerSize * 4);
 }
 
 // Initial flower setup
