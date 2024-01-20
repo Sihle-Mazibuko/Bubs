@@ -4,11 +4,11 @@ body {
 }
 
 header {
-  background-color: none;
+  background-color: whitesmoke;
   color: whitesmoke;
   padding: 10px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.293);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.349);
   position: sticky;
   top: 0;
   z-index: 100;
