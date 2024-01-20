@@ -9,6 +9,7 @@
       type="image/x-icon"
     />
     <link rel="stylesheet" href="home.css" />
+    <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <title>I Love You</title>
   </head>
@@ -33,12 +34,10 @@
       <section id="bible-verse" class="text-section">
         <div class="section-title">
           <h2>Bible Verse</h2>
-          <p class="verse-name-placeholder">Verse Name Placeholder</p>
+          <p class="verse-reference">Verse Name Placeholder</p>
         </div>
         <div class="section-content">
-          <p id="verse-container">
-            Your favorite Bible verse's main message or content.
-          </p>
+          <p id="verse">Your favorite Bible verse's main message or content.</p>
         </div>
       </section>
 
@@ -85,6 +84,10 @@
           <h3>Apple Music</h3>
           <p>Remember that time I...</p>
         </a>
+      </section>
+
+      <section id="flower-section">
+        <div class="flower-container"></div>
       </section>
     </main>
     <footer></footer>
