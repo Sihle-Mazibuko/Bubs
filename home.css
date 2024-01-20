@@ -279,6 +279,19 @@ main {
   border-radius: 5px;
 }
 
+.flower-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+#flower-section {
+  padding: 20px;
+}
+
+.flower-container {
+  margin: 10px;
+}
+
 @media screen and (max-width: 768px) {
   .link-card {
     width: 100%;

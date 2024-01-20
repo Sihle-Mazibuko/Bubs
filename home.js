@@ -16,28 +16,31 @@ function updateFlowerSize() {
     .select("#flower-section")
     .node()
     .getBoundingClientRect().width;
-  const flowerSize = Math.min(sectionWidth * 0.8, 400); // Adjust the factor as needed
 
-  // Select the existing SVG and update its width
-  d3.select("svg")
+  const flowerSizePercentage = 80;
+  const flowerSize = (sectionWidth * flowerSizePercentage) / 100;
+
+  const svg = d3
+    .select("svg")
     .attr("width", flowerSize)
-    .attr("height", flowerSize * 4);
+    .attr("height", flowerSize);
+
+  // Update the flower position to keep it centered
+  svg
+    .select("#flower-container")
+    .attr("transform", `translate(${flowerSize / 2}, ${flowerSize / 2})`);
 }
 
-// Initial flower setup
 updateFlowerSize();
 
-// Event listener for window resize
 window.addEventListener("resize", updateFlowerSize);
 
-// Step 1: Get the width of the section
 const sectionWidth = d3
   .select("#flower-section")
   .node()
   .getBoundingClientRect().width;
 
-// Calculate the flower size based on the section width
-const flowerSize = Math.min(sectionWidth * 0.8, 400); // Adjust the factor as needed
+const flowerSize = Math.min(sectionWidth, 1000); // Adjust the factor as needed
 
 // Step 2: Create an SVG container inside the .flower-container div
 const svg = d3
