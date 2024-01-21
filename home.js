@@ -17,22 +17,19 @@ function updateFlowerSize() {
     .node()
     .getBoundingClientRect().width;
 
-  const flowerSizePercentage = 80;
+  const flowerSizePercentage = 60; // Adjust the percentage as needed
   const flowerSize = (sectionWidth * flowerSizePercentage) / 100;
 
-  const svg = d3
-    .select("svg")
-    .attr("width", flowerSize)
-    .attr("height", flowerSize);
+  d3.select("svg").attr("width", flowerSize).attr("height", flowerSize);
 
   // Update the flower position to keep it centered
-  svg
-    .select("#flower-container")
-    .attr("transform", `translate(${flowerSize / 2}, ${flowerSize / 2})`);
+  d3.select("#flower-container").attr(
+    "transform",
+    `translate(${flowerSize / 2}, ${flowerSize / 2})`
+  );
 }
 
 updateFlowerSize();
-
 window.addEventListener("resize", updateFlowerSize);
 
 const sectionWidth = d3
@@ -47,49 +44,56 @@ const svg = d3
   .select(".flower-container")
   .append("svg")
   .attr("width", flowerSize) // Set the width of the SVG container
-  .attr("height", 800); // Set the height of the SVG container
+  .attr("height", flowerSize); // Set the height of the SVG container
 
 svg
   .append("circle")
-  .attr("cx", sectionWidth / 2)
-  .attr("cy", 180)
-  .attr("r", 100)
+  .attr("cx", flowerSize / 2)
+  .attr("cy", flowerSize * 0.3)
+  .attr("r", flowerSize * 0.22)
   .style("fill", "yellow")
   .style("stroke-width", "3")
   .style("stroke", "#000");
 
 svg
   .append("circle")
-  .attr("cx", sectionWidth / 2 - 35)
-  .attr("cy", 130)
-  .attr("r", 20)
+  .attr("cx", flowerSize / 2 - (flowerSize * 0.25) / 3.3)
+  .attr("cy", flowerSize * 0.22)
+  .attr("r", flowerSize * 0.04)
   .style("fill", "black")
   .style("stroke-width", "3");
 
 svg
   .append("circle")
-  .attr("cx", sectionWidth / 2 - 35)
-  .attr("cy", 125)
-  .attr("r", 8)
+  .attr("cx", flowerSize / 2 - (flowerSize * 0.28) / 3.3)
+  .attr("cy", flowerSize * 0.21)
+  .attr("r", flowerSize * 0.02)
   .style("fill", "white");
 
 svg
   .append("circle")
-  .attr("cx", sectionWidth / 2 + 35)
-  .attr("cy", 130)
-  .attr("r", 20)
+  .attr("cx", flowerSize / 2 + (flowerSize * 0.25) / 3.3)
+  .attr("cy", flowerSize * 0.22)
+  .attr("r", flowerSize * 0.04)
   .style("fill", "black")
   .style("stroke-width", "3");
 
 svg
   .append("circle")
-  .attr("cx", sectionWidth / 2 + 35)
-  .attr("cy", 125)
-  .attr("r", 8)
+  .attr("cx", flowerSize / 2 + (flowerSize * 0.22) / 3.3)
+  .attr("cy", flowerSize * 0.21)
+  .attr("r", flowerSize * 0.02)
   .style("fill", "white");
 
 const mouthPath = d3.path();
-mouthPath.arc(sectionWidth / 2, 160, 70, 0, Math.PI, false);
+mouthPath.arc(
+  flowerSize / 2,
+  flowerSize * 0.32,
+  flowerSize * 0.14,
+  0,
+  Math.PI,
+  false
+);
 
 // Save the initial mouth path separately
 const initialMouthPath = mouthPath.toString();
@@ -101,7 +105,7 @@ svg
   .style("fill", "red")
   .style("stroke-width", "3");
 
-const numberOfPetals = 18;
+const numberOfPetals = 28;
 let randomColor1 = getRandomColor();
 let randomColor2 = getRandomColor();
 
@@ -109,10 +113,17 @@ for (let i = 0; i < numberOfPetals; i++) {
   const angle = (i * 2 * Math.PI) / numberOfPetals;
   const petalPath = d3.path();
 
-  petalPath.moveTo(sectionWidth / 2 - 30, 20);
-  petalPath.arc(sectionWidth / 2, 20, 30, Math.PI, 0, false);
-  petalPath.lineTo(sectionWidth / 2 + 20, 80);
-  petalPath.lineTo(sectionWidth / 2 - 20, 80);
+  petalPath.moveTo(flowerSize / 2 - flowerSize * 0.03, flowerSize * 0.02);
+  petalPath.arc(
+    flowerSize / 2,
+    flowerSize * 0.02,
+    flowerSize * 0.03,
+    Math.PI,
+    0,
+    false
+  );
+  petalPath.lineTo(flowerSize / 2 + flowerSize * 0.03, flowerSize * 0.1);
+  petalPath.lineTo(flowerSize / 2 - flowerSize * 0.03, flowerSize * 0.1);
   petalPath.closePath();
 
   const fillColor = i % 2 === 0 ? randomColor1 : randomColor2;
@@ -122,7 +133,9 @@ for (let i = 0; i < numberOfPetals; i++) {
     .attr("d", petalPath.toString())
     .attr(
       "transform",
-      `rotate(${(i * 360) / numberOfPetals},${sectionWidth / 2},${180})`
+      `rotate(${(i * 360) / numberOfPetals},${flowerSize / 2},${
+        flowerSize * 0.309
+      })`
     )
     .style("fill", fillColor)
     .style("stroke", "black")

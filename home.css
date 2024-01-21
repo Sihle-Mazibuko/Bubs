@@ -280,7 +280,7 @@ main {
 }
 
 .flower-container svg {
-  max-width: 100%;
+  width: 100%;
   height: auto;
 }
 
@@ -295,5 +295,68 @@ main {
 @media screen and (max-width: 768px) {
   .link-card {
     width: 100%;
+  }
+}
+
+#blog-section {
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#blog-icon {
+  transform: scale(9);
+  color: #3498db; /* Choose a color for the icon */
+  margin-bottom: 10px; /* Adjust spacing between icon and text */
+}
+
+#blog-link {
+  text-decoration: none;
+  color: red; /* Choose a color for the text */
+  font-weight: bold;
+  display: block;
+}
+
+section:not(:first-child):not(:last-child) {
+  border-top: 2px solid #ccc; /* Adjust the color and style of the line */
+  padding-top: 20px; /* Add some space above the line */
+}
+
+#fr {
+  position: relative;
+  font-size: 2vw;
+  color: white;
+  text-align: center;
+  padding: 30px;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+#fr::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 10;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  color: skyblue;
+  -webkit-text-stroke: 0vw rgba(135, 207, 235, 0.36);
+  overflow: hidden;
+  animation: text 8s linear infinite;
+}
+
+@keyframes text {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-50%); /* Move text off-screen to the right */
+  }
+  100% {
+    transform: translateX(-100%);
   }
 }
