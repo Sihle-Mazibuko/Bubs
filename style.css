@@ -200,12 +200,14 @@ span {
 
 #no {
   color: red;
-  opacity: 0.4;
+  opacity: 0.1;
+  transform: scale(0.2);
 }
 
 #yes {
   color: green;
   border: 5px solid black;
+  scale: 3;
 }
 
 #yesheart {
