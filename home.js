@@ -163,3 +163,65 @@ function getRandomColor() {
   }
   return color;
 }
+
+// ... (Your existing code for fetchRandomDog and other logic)
+
+// Attach the function to the button click event
+document
+  .getElementById("fetch-dog-btn")
+  .addEventListener("click", fetchRandomDog);
+
+// Function to fetch a random dog and update heading
+function fetchRandomDog() {
+  var httpLink = new XMLHttpRequest();
+  httpLink.open("get", "https://dog.ceo/api/breeds/image/random");
+  httpLink.send();
+
+  httpLink.onreadystatechange = function () {
+    if (httpLink.readyState == 4 && httpLink.status == 200) {
+      var response = httpLink.responseText;
+      try {
+        var data = JSON.parse(response);
+        if (data.status === "success") {
+          var dogBreed = extractBreed(data.message);
+          updateHeading(dogBreed);
+          document.getElementById("dog-pic").src = data.message;
+        } else {
+          console.error("Failed to fetch dog data.");
+        }
+      } catch (error) {
+        console.error("Error parsing JSON response.", error);
+      }
+    }
+  };
+}
+
+// Function to update the heading with the dog breed name
+function updateHeading(breedName) {
+  document.getElementById("dog-breed-heading").textContent = breedName;
+}
+
+// Function to extract the breed from the image URL
+function extractBreed(imageUrl) {
+  var parts = imageUrl.split("/");
+  var breedIndex = parts.indexOf("breeds") + 1;
+  if (breedIndex < parts.length) {
+    return capitalizeFirstLetter(parts[breedIndex]);
+  } else {
+    return "Unknown Breed";
+  }
+}
+
+// Function to capitalize the first letter of a string
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function handleFetchError(errorMessage) {
+  console.error(errorMessage);
+}
+
+fetchRandomDog();
+document
+  .getElementById("fetch-dog-btn")
+  .addEventListener("click", fetchRandomDog);
