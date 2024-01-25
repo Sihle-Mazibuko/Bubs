@@ -1,0 +1,46 @@
+/* CSS styles for the menu */
+.menu {
+  background-color: #f8f9fa; /* Light background color */
+  padding: 10px; /* Add padding to the menu */
+  margin-bottom: 20px; /* Add margin at the bottom */
+}
+
+.menu ul {
+  list-style-type: none; /* Remove default list styles */
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  display: inline-block; /* Display menu items horizontally */
+  margin-right: 10px; /* Add margin between menu items */
+}
+
+.menu a {
+  text-decoration: none; /* Remove underline from links */
+  color: #333; /* Link color */
+  padding: 5px 10px; /* Add padding to the links */
+  border-radius: 5px; /* Add rounded corners to links */
+}
+
+.menu a:hover {
+  background-color: #e9ecef; /* Change background color on hover */
+}
+
+/* CSS styles for the notes */
+.notes {
+  border: 1px solid #ccc; /* Add border around notes */
+  padding: 20px; /* Add padding to notes */
+}
+
+.notes div {
+  display: none; /* Hide all notes by default */
+}
+
+.notes div:first-child {
+  display: block; /* Show the first note initially */
+}
+
+.notes h2 {
+  margin-top: 0; /* Remove margin from the top of headings */
+}

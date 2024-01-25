@@ -225,3 +225,105 @@ fetchRandomDog();
 document
   .getElementById("fetch-dog-btn")
   .addEventListener("click", fetchRandomDog);
+
+// fetchCoffee.js file
+document.addEventListener("DOMContentLoaded", fetchDailyRandomCoffee);
+
+async function fetchDailyRandomCoffee() {
+  try {
+    // Retrieve stored coffee information and last fetch date
+    const storedCoffeeInfo =
+      JSON.parse(localStorage.getItem("dailyCoffeeInfo")) || {};
+    const storedDate = storedCoffeeInfo.date;
+
+    // Get the current date
+    const currentDate = new Date().toLocaleDateString();
+
+    // Check if the stored date matches the current date
+    if (storedDate === currentDate) {
+      // If dates match, use the stored coffee information
+      displayCoffeeInfo(storedCoffeeInfo.coffee);
+    } else {
+      // If dates don't match, fetch a new random coffee
+      const response = await fetch("https://api.sampleapis.com/coffee/hot");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Coffee API Response:", data);
+
+      if (Array.isArray(data) && data.length > 0) {
+        // Store the new coffee information and update the date
+        const randomIndex = Math.floor(Math.random() * data.length);
+        const randomCoffee = data[randomIndex];
+        localStorage.setItem(
+          "dailyCoffeeInfo",
+          JSON.stringify({ date: currentDate, coffee: randomCoffee })
+        );
+
+        // Display the new coffee information in the HTML
+        displayCoffeeInfo(randomCoffee);
+      } else {
+        console.error(
+          "Invalid or empty API response. Unable to display coffee information."
+        );
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching coffee data:", error.message);
+  }
+}
+
+function displayCoffeeInfo(coffee) {
+  const coffeeInfoSection = document.getElementById("coffee-info-section");
+
+  // Clear previous content
+  coffeeInfoSection.innerHTML = "";
+
+  // Display coffee information in the HTML
+  const coffeeHeading = document.createElement("h2");
+  coffeeHeading.textContent = "Coffee of the Day";
+  coffeeInfoSection.appendChild(coffeeHeading);
+
+  const coffeeImage = document.createElement("img");
+  coffeeImage.src = coffee.image;
+  coffeeImage.alt = coffee.title;
+  coffeeInfoSection.appendChild(coffeeImage);
+
+  const coffeeTitle = document.createElement("p");
+  coffeeTitle.textContent = `Todays coffee: ${coffee.title}`;
+  coffeeInfoSection.appendChild(coffeeTitle);
+}
+
+// fetchVerse.js file
+document.addEventListener("DOMContentLoaded", fetchVerseOfTheDay);
+
+async function fetchVerseOfTheDay() {
+  try {
+    const response = await fetch(
+      "https://beta.ourmanna.com/api/v1/get/?format=json"
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Success:", data);
+
+    displayVerseOfTheDay(data.verse.details);
+  } catch (error) {
+    console.error("Error fetching verse data:", error.message);
+  }
+}
+
+function displayVerseOfTheDay(verseDetails) {
+  const verseContainer = document.getElementById("verse-container");
+  const verseName = document.querySelector(".verse-name-placeholder");
+
+  // Update the content of the verse container with the fetched verse
+  verseContainer.textContent = verseDetails.text;
+  verseName.textContent = `${verseDetails.reference} - (${verseDetails.version})`;
+}
