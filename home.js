@@ -258,7 +258,7 @@ function displayVerseOfTheDay(verseDetails) {
 }
 
 // Array of coffee IDs to filter out
-const excludedCoffeeIds = [19, 20, 18];
+const excludedCoffeeIds = [19, 20];
 
 document.addEventListener("DOMContentLoaded", fetchDailyRandomCoffee);
 
