@@ -345,7 +345,7 @@ function displayCoffeeInfo(coffee) {
 
   // Display coffee information in the HTML
   const coffeeHeading = document.createElement("h2");
-  coffeeHeading.textContent = "Coffee of the Day";
+  coffeeHeading.textContent = "Beverage of the Day";
   coffeeInfoSection.appendChild(coffeeHeading);
 
   const coffeeImage = document.createElement("img");
@@ -354,6 +354,6 @@ function displayCoffeeInfo(coffee) {
   coffeeInfoSection.appendChild(coffeeImage);
 
   const coffeeTitle = document.createElement("p");
-  coffeeTitle.textContent = `Today's coffee: ${coffee.title}`;
+  coffeeTitle.textContent = `Today's drink: ${coffee.title}`;
   coffeeInfoSection.appendChild(coffeeTitle);
 }
