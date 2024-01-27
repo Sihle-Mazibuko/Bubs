@@ -226,53 +226,6 @@ document
   .getElementById("fetch-dog-btn")
   .addEventListener("click", fetchRandomDog);
 
-let previousVerse = null;
-
-document.addEventListener("DOMContentLoaded", () => {
-  fetchVerseOfTheDay();
-  setInterval(fetchVerseOfTheDay, 60000); // Fetch verse every minute
-});
-
-async function fetchVerseOfTheDay() {
-  try {
-    const response = await fetch(
-      "https://beta.ourmanna.com/api/v1/get/?format=json"
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log("Success:", data);
-
-    if (
-      !previousVerse ||
-      JSON.stringify(previousVerse) !== JSON.stringify(data.verse.details)
-    ) {
-      // If previousVerse is null or the fetched verse is different from the previous one
-      displayVerseOfTheDay(data.verse.details);
-      if (previousVerse) {
-        console.log("Previous Verse:", previousVerse);
-      }
-      previousVerse = data.verse.details;
-    } else {
-      console.log("Verse remains the same.");
-    }
-  } catch (error) {
-    console.error("Error fetching verse data:", error.message);
-  }
-}
-
-function displayVerseOfTheDay(verseDetails) {
-  const verseContainer = document.getElementById("verse-container");
-  const verseName = document.querySelector(".verse-name-placeholder");
-
-  // Update the content of the verse container with the fetched verse
-  verseContainer.textContent = verseDetails.text;
-  verseName.textContent = `${verseDetails.reference} - (${verseDetails.version})`;
-}
-
 document.addEventListener("DOMContentLoaded", fetchDailyRandomCoffee);
 
 async function fetchDailyRandomCoffee() {
@@ -356,4 +309,51 @@ function displayCoffeeInfo(coffee) {
   const coffeeTitle = document.createElement("p");
   coffeeTitle.textContent = `Today's drink is: ${coffee.title}`;
   coffeeInfoSection.appendChild(coffeeTitle);
+}
+
+let previousVerse = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+  fetchVerseOfTheDay();
+  setInterval(fetchVerseOfTheDay, 60000); // Fetch verse every minute
+});
+
+async function fetchVerseOfTheDay() {
+  try {
+    const response = await fetch(
+      "https://beta.ourmanna.com/api/v1/get/?format=json"
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Success:", data);
+
+    if (
+      !previousVerse ||
+      JSON.stringify(previousVerse) !== JSON.stringify(data.verse.details)
+    ) {
+      // If previousVerse is null or the fetched verse is different from the previous one
+      displayVerseOfTheDay(data.verse.details);
+      if (previousVerse) {
+        console.log("Previous Verse:", previousVerse);
+      }
+      previousVerse = data.verse.details;
+    } else {
+      console.log("Verse remains the same.");
+    }
+  } catch (error) {
+    console.error("Error fetching verse data:", error.message);
+  }
+}
+
+function displayVerseOfTheDay(verseDetails) {
+  const verseContainer = document.getElementById("verse-container");
+  const verseName = document.querySelector(".verse-name-placeholder");
+
+  // Update the content of the verse container with the fetched verse
+  verseContainer.textContent = verseDetails.text;
+  verseName.textContent = `${verseDetails.reference} - (${verseDetails.version})`;
 }
