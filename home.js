@@ -354,6 +354,6 @@ function displayCoffeeInfo(coffee) {
   coffeeInfoSection.appendChild(coffeeImage);
 
   const coffeeTitle = document.createElement("p");
-  coffeeTitle.textContent = `Today's drink: ${coffee.title}`;
+  coffeeTitle.textContent = `Today's drink is: ${coffee.title}`;
   coffeeInfoSection.appendChild(coffeeTitle);
 }
