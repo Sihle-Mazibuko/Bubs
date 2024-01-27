@@ -284,7 +284,7 @@ async function fetchDailyRandomCoffee() {
     const storedData =
       JSON.parse(localStorage.getItem("dailyCoffeeSelection")) || {};
     const storedDate = storedData.date;
-    const storedIndex = storedData.index;
+    let storedIndex = storedData.index;
 
     if (storedDate === currentDate && storedIndex !== undefined) {
       // If stored date matches current date and there's a stored index, use it
@@ -302,13 +302,13 @@ async function fetchDailyRandomCoffee() {
       const filteredData = data.filter(
         (coffee) => !excludedIds.includes(coffee.id)
       );
-      const randomIndex = Math.floor(Math.random() * filteredData.length);
-      const selectedCoffee = filteredData[randomIndex];
+      storedIndex = Math.floor(Math.random() * filteredData.length);
+      const selectedCoffee = filteredData[storedIndex];
 
       // Store selected index and current date in local storage
       localStorage.setItem(
         "dailyCoffeeSelection",
-        JSON.stringify({ date: currentDate, index: randomIndex })
+        JSON.stringify({ date: currentDate, index: storedIndex })
       );
 
       displayCoffeeInfo(selectedCoffee);
