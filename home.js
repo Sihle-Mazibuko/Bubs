@@ -226,91 +226,6 @@ document
   .getElementById("fetch-dog-btn")
   .addEventListener("click", fetchRandomDog);
 
-document.addEventListener("DOMContentLoaded", fetchDailyRandomCoffee);
-
-async function fetchDailyRandomCoffee() {
-  try {
-    // Retrieve stored coffee information and last fetch date
-    const storedCoffeeInfo =
-      JSON.parse(localStorage.getItem("dailyCoffeeInfo")) || {};
-    const storedDate = storedCoffeeInfo.date;
-
-    // Get the current date
-    const currentDate = new Date().toLocaleDateString();
-
-    // Check if the stored date matches the current date
-    if (storedDate === currentDate && storedCoffeeInfo.coffees.length > 0) {
-      // If dates match and there are remaining coffees, pop the next one
-      const randomCoffee = storedCoffeeInfo.coffees.pop();
-      localStorage.setItem(
-        "dailyCoffeeInfo",
-        JSON.stringify({ date: currentDate, coffees: storedCoffeeInfo.coffees })
-      );
-      displayCoffeeInfo(randomCoffee);
-    } else {
-      // If dates don't match or no remaining coffees, fetch new coffees
-      const response = await fetch("https://api.sampleapis.com/coffee/hot");
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("Coffee API Response:", data);
-
-      if (Array.isArray(data) && data.length > 0) {
-        // Shuffle the array of coffees
-        const shuffledCoffees = shuffleArray(data);
-        const randomCoffee = shuffledCoffees.pop();
-
-        // Store the shuffled array and update the date
-        localStorage.setItem(
-          "dailyCoffeeInfo",
-          JSON.stringify({ date: currentDate, coffees: shuffledCoffees })
-        );
-
-        // Display the new coffee information in the HTML
-        displayCoffeeInfo(randomCoffee);
-      } else {
-        console.error(
-          "Invalid or empty API response. Unable to display coffee information."
-        );
-      }
-    }
-  } catch (error) {
-    console.error("Error fetching coffee data:", error.message);
-  }
-}
-
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
-function displayCoffeeInfo(coffee) {
-  const coffeeInfoSection = document.getElementById("coffee-info-section");
-
-  // Clear previous content
-  coffeeInfoSection.innerHTML = "";
-
-  // Display coffee information in the HTML
-  const coffeeHeading = document.createElement("h2");
-  coffeeHeading.textContent = "Beverage of the Day";
-  coffeeInfoSection.appendChild(coffeeHeading);
-
-  const coffeeImage = document.createElement("img");
-  coffeeImage.src = coffee.image;
-  coffeeImage.alt = coffee.title;
-  coffeeInfoSection.appendChild(coffeeImage);
-
-  const coffeeTitle = document.createElement("p");
-  coffeeTitle.textContent = `Today's drink is: ${coffee.title}`;
-  coffeeInfoSection.appendChild(coffeeTitle);
-}
-
 let previousVerse = null;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -356,4 +271,70 @@ function displayVerseOfTheDay(verseDetails) {
   // Update the content of the verse container with the fetched verse
   verseContainer.textContent = verseDetails.text;
   verseName.textContent = `${verseDetails.reference} - (${verseDetails.version})`;
+}
+
+document.addEventListener("DOMContentLoaded", fetchDailyRandomCoffee);
+
+// Array of IDs to exclude
+const excludedIds = [19, 18, 20];
+
+async function fetchDailyRandomCoffee() {
+  try {
+    const currentDate = new Date().toLocaleDateString();
+    const storedData =
+      JSON.parse(localStorage.getItem("dailyCoffeeSelection")) || {};
+    const storedDate = storedData.date;
+    const storedIndex = storedData.index;
+
+    if (storedDate === currentDate && storedIndex !== undefined) {
+      // If stored date matches current date and there's a stored index, use it
+      const response = await fetch("https://api.sampleapis.com/coffee/hot");
+      const data = await response.json();
+      const filteredData = data.filter(
+        (coffee) => !excludedIds.includes(coffee.id)
+      );
+      const selectedCoffee = filteredData[storedIndex];
+      displayCoffeeInfo(selectedCoffee);
+    } else {
+      // If dates don't match or no stored index, select a new random index
+      const response = await fetch("https://api.sampleapis.com/coffee/hot");
+      const data = await response.json();
+      const filteredData = data.filter(
+        (coffee) => !excludedIds.includes(coffee.id)
+      );
+      const randomIndex = Math.floor(Math.random() * filteredData.length);
+      const selectedCoffee = filteredData[randomIndex];
+
+      // Store selected index and current date in local storage
+      localStorage.setItem(
+        "dailyCoffeeSelection",
+        JSON.stringify({ date: currentDate, index: randomIndex })
+      );
+
+      displayCoffeeInfo(selectedCoffee);
+    }
+  } catch (error) {
+    console.error("Error fetching coffee data:", error.message);
+  }
+}
+
+function displayCoffeeInfo(coffee) {
+  const coffeeInfoSection = document.getElementById("coffee-info-section");
+
+  // Clear previous content
+  coffeeInfoSection.innerHTML = "";
+
+  // Display coffee information in the HTML
+  const coffeeHeading = document.createElement("h2");
+  coffeeHeading.textContent = "Beverage of the Day";
+  coffeeInfoSection.appendChild(coffeeHeading);
+
+  const coffeeImage = document.createElement("img");
+  coffeeImage.src = coffee.image;
+  coffeeImage.alt = coffee.title;
+  coffeeInfoSection.appendChild(coffeeImage);
+
+  const coffeeTitle = document.createElement("p");
+  coffeeTitle.textContent = `Today's drink is: ${coffee.title}`;
+  coffeeInfoSection.appendChild(coffeeTitle);
 }
