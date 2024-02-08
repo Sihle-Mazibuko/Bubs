@@ -464,3 +464,118 @@ section:not(:first-child):not(:last-child) {
     font-size: 16px; /* Reduce font size on smaller screens */
   }
 }
+
+.tt-section {
+  padding: 20px;
+  background-color: #f0f0f0;
+  text-align: center;
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 800px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .tt-section {
+    padding: 10px;
+  }
+}
+
+.remember-the-time {
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.remember-the-time h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.text-holder {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.image-container {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive styling */
+@media (min-width: 768px) {
+  .remember-the-time {
+    max-width: 80%;
+  }
+}
+
+.load {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.loading {
+  position: relative;
+  width: 250px;
+  height: 250px;
+}
+
+.loading .blocks {
+  position: absolute;
+  width: 8px;
+  height: 25px;
+  background: black;
+  left: 50%;
+  transform: rotate(calc(18deg * var(--i)));
+  transform-origin: 0 125px;
+  animation: load 2.9s ease-in-out infinite;
+  border-radius: 20px;
+  animation-delay: calc(0.06s * var(--i));
+}
+
+@keyframes load {
+  0%,
+  50% {
+    background: black;
+    box-shadow: none;
+  }
+  50.1%,
+  100% {
+    background: #3498db;
+    box-shadow: 0 0 5px #3498db, 0 0 15px #3498db, 0 0 30px #3498db,
+      0 0 60px #3498db, 0 0 90px #3498db;
+  }
+}
+
+.load-txt {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  letter-spacing: 1px;
+  animation: loadtxt 2s ease-in-out infinite;
+  animation-delay: -1s;
+}
+
+@keyframes loadtxt {
+  0%,
+  50% {
+    color: black;
+    text-shadow: none;
+  }
+  50.1%,
+  100% {
+    color: #3498db;
+  }
+}
