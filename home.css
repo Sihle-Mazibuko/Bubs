@@ -579,3 +579,8 @@ section:not(:first-child):not(:last-child) {
     color: #3498db;
   }
 }
+
+#imgg {
+  width: 100%;
+  height: auto;
+}
